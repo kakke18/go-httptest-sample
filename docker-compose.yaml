@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  authn:
+    build: ./authn
+    container_name: authn
+    networks:
+      - my_network
+
+  app:
+    build: ./app
+    container_name: app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - authn
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
